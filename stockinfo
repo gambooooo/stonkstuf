@@ -1,0 +1,33 @@
+import requests
+from bs4 import BeautifulSoup
+#given input
+tickers = ['NFLX','SPY','AAPL']
+
+# This script pulls individual stock info for tickers listed above
+
+def urlDisplay(ticker):
+    url = 'https://finance.yahoo.com/quote/' + ticker
+
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, 'html.parser')
+
+    name = soup.find('div', {'class':'Mt(15px)'}).find_all('h1')[0].text
+    price = soup.find('div', {'class':'D(ib) Mend(20px)'}).find_all('span')[0].text
+    change = soup.find('div', {'class':'D(ib) Mend(20px)'}).find_all('span')[1].text
+    cap = soup.find('div', {'class':'D(ib) W(1/2) Bxz(bb) Pstart(12px) Va(t) ie-7_D(i) ie-7_Pos(a) smartphone_D(b) smartphone_W(100%) smartphone_Pstart(0px) smartphone_BdB smartphone_Bdc($seperatorColor)'}).find_all('span')[0].text
+    capnumber = soup.find('div', {'class':'D(ib) W(1/2) Bxz(bb) Pstart(12px) Va(t) ie-7_D(i) ie-7_Pos(a) smartphone_D(b) smartphone_W(100%) smartphone_Pstart(0px) smartphone_BdB smartphone_Bdc($seperatorColor)'}).find_all('span')[1].text
+    topnews = soup.find('h3', {'class':'Mb(5px)'}).find_all('a')[0].text
+
+    print(name)
+    print(url)
+    print("Last Price:",price)
+    print("Change:", change)
+    print(cap,":", capnumber)
+    print("Top News:", topnews)
+#driver code
+def main():
+    for i in tickers:
+        urlDisplay(i)
+        print('-' * 20)
+if __name__ == "__main__":
+    main()
