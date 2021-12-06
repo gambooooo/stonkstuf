@@ -1,0 +1,37 @@
+from datetime import datetime
+import requests
+import pandas as pd
+import urllib.request
+
+# This script pulls data / verifies option code 
+
+url = 'https://finance.yahoo.com/quote/'
+
+ticker = "spy".upper()
+
+strike = "2500"
+newstrike = (str(strike).zfill(5))
+newnewstrike = newstrike.ljust(8,'0')
+
+cop = "C".upper()
+
+importdate = '12/10/21'
+datetimeobject = datetime.strptime(importdate,'%m/%d/%y')
+newdate = datetimeobject.strftime('%y%m%d')
+
+testdate = datetimeobject.strftime('20%y-%m-%d')
+
+temp = pd.Timestamp(testdate)
+# print(temp.day_name())
+temptest = temp.day_name()
+
+url2 = url+ticker+newdate+cop+newnewstrike
+
+if temptest != 'Friday':
+    print("Date is not a Friday")
+else:
+    response = requests.get(url2, headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36"})
+    if response.history:
+        print("Option Code is Incorrect")
+        print ("$",ticker,sep="")
+        print ("Strike:", strike)
