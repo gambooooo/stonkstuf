@@ -1,0 +1,22 @@
+from datetime import datetime
+import requests
+
+# This script pulls data / verifies option code 
+
+url = 'https://finance.yahoo.com/quote/'
+
+ticker = "spy".upper()
+
+strike = "1500"
+newstrike = (str(strike).zfill(5))
+newnewstrike = newstrike.ljust(8,'0')
+
+cop = "C".upper()
+
+importdate = '12/3/21'
+datetimeobject = datetime.strptime(importdate,'%m/%d/%y')
+
+newdate = datetimeobject.strftime('%y%m%d')
+
+#print ("Option Code: ",ticker,newdate,cop,newnewstrike,sep='')
+#print (url,ticker,newdate,cop,newnewstrike,sep='')      
