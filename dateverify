@@ -1,0 +1,14 @@
+from datetime import datetime
+import pandas as pd
+
+importdate = '12/6/21'
+datetimeobject = datetime.strptime(importdate,'%m/%d/%y')
+
+newdate = datetimeobject.strftime('20%y-%m-%d')
+
+temp = pd.Timestamp(newdate)
+# print(temp.day_name())
+temptest = temp.day_name()
+
+if temptest != 'Friday':
+    print("test")
