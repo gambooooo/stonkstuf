@@ -1,0 +1,14 @@
+import urllib.request
+import requests
+
+# This script shows redirect information
+
+response = requests.get('https://finance.yahoo.com/quote/SPY211203C00700000', headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.55 Safari/537.36"})
+if response.history:
+    print("Request was redirected")
+    for resp in response.history:
+        print(resp.status_code, resp.url)
+    print("Final destination:")
+    print(response.status_code, response.url)
+else:
+    print("Request was not redirected")
